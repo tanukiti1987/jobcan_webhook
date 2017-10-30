@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  pool: 5
+  username:
+  password:
+
+development:
+  <<: *default
+  database: jobcan_webhook_development
+
+test:
+  <<: *default
+  database: jobcan_webhook_test
+
+production:
+  <<: *default
+  database: jobcan_webhook_production

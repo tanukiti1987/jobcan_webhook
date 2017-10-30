@@ -1,0 +1,21 @@
+!!! 5
+%html
+  %head
+    %meta{ charset: 'utf-8' }
+    %meta{ 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }
+    %title タイトル
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0, user-scalable=no' }
+    %link{ href: 'css/bootstrap.min.css', rel: 'stylesheet' }
+    %link{ href: 'css/all.css', rel: 'stylesheet' }
+    %link{ href: 'images/favicon.ico', rel: 'shortcut icon' }
+  %body
+    %script{ src: '//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js' }
+    %script{ src: 'js/bootstrap.min.js' }
+    .container-fluid
+      = yield
+      .row-fluid
+        .col-xs-12
+          %address.text-right
+            %b おといあわせ →
+            %a{ href: 'https://twitter.com/tanukiti1987' }
+              Ryusuke Sekiguchi
