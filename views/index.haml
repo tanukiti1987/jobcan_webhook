@@ -1,0 +1,22 @@
+%main{ role: 'main' }
+  %form
+    .form-group
+      %label{ for: 'client_name' }
+        会社ID
+      %input#client_name.form-control{ type: 'text', "aria-describedby": 'clientNameHelp', placeholder: '会社ID' }
+      %small#clientNameHelp.form-text.text-muted
+        ジョブカンで使用している会社ID
+    .form-group
+      %label{ for: 'inputEmail' }
+        メールアドレス
+      %input#inputEmail.form-control{ type: 'email', "aria-describedby": 'emailHelp', placeholder: 'jobcan@example.com' }
+      %small#emailHelp.form-text.text-muted
+        ジョブカンで使用しているメールアドレス
+    .form-group
+      %label{ for: 'inputPassword' }
+        パスワード
+      %input#inputPassword.form-control{ type: 'password', "aria-describedby": 'passwordHelp', placeholder: 'Password' }
+      %small#passwordHelp.form-text.text-muted
+        ジョブカンで使用しているパスワード
+    %button.btn.btn-primry{ type: 'submit' }
+      Webhook URLを取得
