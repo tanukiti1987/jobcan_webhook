@@ -9,7 +9,6 @@ require 'rack/protection'
 
 require 'securerandom'
 require 'active_support'
-require 'sinatra/activerecord'
 
 require './app'
 
