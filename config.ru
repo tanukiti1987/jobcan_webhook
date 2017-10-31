@@ -7,6 +7,10 @@ require 'pry' unless ENV['RACK_ENV'] == 'production'
 
 require 'rack/protection'
 
+require 'securerandom'
+require 'active_support'
+require 'sinatra/activerecord'
+
 require './app'
 
 if ENV['RACK_ENV'] == 'production'

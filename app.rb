@@ -1,4 +1,3 @@
-require "sinatra/activerecord"
 require 'sinatra/reloader'
 
 require_relative 'models/init'

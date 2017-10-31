@@ -5,7 +5,7 @@ class CreateAuthentications < ActiveRecord::Migration[5.1]
       t.string :user_name,   null: false
       t.string :password,    null: false
       t.string :salt,        null: false
-      t.string :uuid,        null:false
+      t.string :uuid,        null: false
 
       t.timestamps
     end
