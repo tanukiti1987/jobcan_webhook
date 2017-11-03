@@ -1,5 +1,5 @@
 class Authentication < ActiveRecord::Base
-  before_validation :set_uuid
+  before_validation :set_access_key
   before_validation :set_secret_key
   before_validation :set_salt
   before_save       :encrypt_password
@@ -7,7 +7,7 @@ class Authentication < ActiveRecord::Base
   validates :client_name, presence: true
   validates :user_name, presence: true
   validates :password, presence: true
-  validates :uuid, presence: true, uniqueness: true
+  validates :access_key, presence: true
   validates :secret_key, presence: true
   validates :salt, presence: true
 
@@ -23,9 +23,9 @@ class Authentication < ActiveRecord::Base
     self.password = encrypt(password)
   end
 
-  def set_uuid
-    return if uuid.present?
-    self.uuid = SecureRandom.uuid.gsub('-', '')
+  def set_access_key
+    return if access_key.present?
+    self.access_key = SecureRandom.uuid.gsub('-', '')
   end
 
   def set_salt

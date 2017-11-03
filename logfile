@@ -1,6 +1,0 @@
-2017-10-31 23:35:22.629 JST [48526] LOG:  listening on IPv6 address "::1", port 5432
-2017-10-31 23:35:22.629 JST [48526] LOG:  listening on IPv4 address "127.0.0.1", port 5432
-2017-10-31 23:35:22.631 JST [48526] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
-2017-10-31 23:35:22.648 JST [48527] LOG:  database system was shut down at 2017-10-31 23:34:49 JST
-2017-10-31 23:35:22.653 JST [48526] LOG:  database system is ready to accept connections
-2017-10-31 23:37:32.799 JST [48805] FATAL:  database "jobcan_webhook_development" does not exist

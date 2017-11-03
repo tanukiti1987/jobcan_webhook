@@ -18,4 +18,20 @@ class App < Sinatra::Base
   get '/' do
     haml :index
   end
+
+  post '/create' do
+    authentication =
+      Authentication.create(
+        client_name: params['client_name'],
+        user_name: params['user_name'],
+        password: params['password'])
+
+    if authentication
+      # TODO: implement later
+      haml :create
+    else
+      # TODO: add flash message
+      redirect to('/')
+    end
+  end
 end
