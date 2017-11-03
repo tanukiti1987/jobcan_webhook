@@ -42,26 +42,43 @@ class App < Sinatra::Base
     end
   end
 
+  post '/slack_notification/create' do
+    @authentication = Authentication.find_by(id: params['authentication_id'])
+    halt 400, "Bad request" if @authentication.nil?
+
+    @slack_notification =
+      SlackNotification.create(
+        authentication: @authentication,
+        webhook_url: params["webhook_url"],
+        channel: params["channel"]
+      )
+
+    haml :create
+  end
+
   post '/clock_in' do
     set_authentication
     jobcan = Jobcan.new(@authentication)
-    if jobcan.clock_in
-      slack_notifier = SlackNotifier.new
-      slack_notifier.notify "出勤できました"
-    else
-      slack_notifier = SlackNotifier.new
-      slack_notifier.notify "出勤できませんでした"
-    end
+    message =
+      if jobcan.clock_in
+        "出勤できました"
+      else
+        "出勤できませんでした"
+      end
+
+    @authentication.slack_notification&.notify message
   end
 
   post '/clock_out' do
     set_authentication
     jobcan = Jobcan.new(@authentication)
+    message =
+      if jobcan.clock_out
+        "退勤できました"
+      else
+        "退勤できませんでした"
+      end
 
-    if jobcan.clock_out
-      puts "退勤できました"
-    else
-      puts "退勤できませんでした"
-    end
+    @authentication.slack_notification&.notify message
   end
 end

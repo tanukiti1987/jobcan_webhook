@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171103124200) do
+ActiveRecord::Schema.define(version: 20171103161500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,14 @@ ActiveRecord::Schema.define(version: 20171103124200) do
     t.datetime "updated_at", null: false
     t.string "secret_key"
     t.index ["access_key"], name: "index_authentications_on_access_key"
+  end
+
+  create_table "slack_notifications", force: :cascade do |t|
+    t.integer "authentication_id", null: false
+    t.string "webhook_url", null: false
+    t.string "channel", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

@@ -11,6 +11,8 @@ class Authentication < ActiveRecord::Base
   validates :secret_key, presence: true
   validates :salt, presence: true
 
+  has_one :slack_notification
+
   CIPHER = 'aes-256-cbc'
 
   def decrypted_password

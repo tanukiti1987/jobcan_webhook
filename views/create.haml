@@ -70,3 +70,24 @@
         curl -X POST -H 'Content-type: application/json' \
         \--data '{"access_key":"YOUR_ACCESS_KEY","secret_key":"YOUR_SECRET_KEY"}' \
         https://jobcan-webhook.herokuapp.com/clock_in
+
+  %h1
+    Slack Notification
+    - if @slack_notification
+      %span.badge.badge-info 登録済み
+
+  %form{ method: 'post', action: '/slack_notification/create' }
+    %input{ type: 'hidden', name: 'authentication_id', value: @authentication.id }
+
+    .form-group
+      %label{ for: 'webhook_url' }
+        Slack webhook URL
+      %input#webhook_url.form-control{ type: 'text', name: 'webhook_url', placeholder: 'https://hooks.slack.com/services/XXXX', required: true, value: @slack_notification&.webhook_url }
+    .form-group
+      %label{ for: 'channel' }
+        Channel
+      %input#channel.form-control{ type: 'text', name: 'channel', "aria-describedby": 'channelHelp', placeholder: '#general', required: true, value: @slack_notification&.channel }
+      %small#emailHelp.form-text.text-muted
+        \# から入力してください
+    %button.btn.btn-primary{ type: 'submit' }
+      Slack webhook を設定
