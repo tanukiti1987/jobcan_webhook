@@ -18,6 +18,7 @@ class Jobcan
 
     return false if working_status != :before_work
 
+    puts "出勤処理"
     # session.find('p#adit-button-push').click
 
     while working_status == :before_work && @retry > 0
@@ -58,12 +59,15 @@ class Jobcan
   private
 
   def visit_and_login
+    puts "サイトに行く"
     session.visit "https://ssl.jobcan.jp/login/pc-employee/?client_id=#{@authentication.client_name}"
 
     session.fill_in("email", with: @authentication.user_name)
     session.fill_in("password", with: @authentication.decrypted_password)
 
+    puts "ログイン中"
     session.click_button('ログイン')
+    puts "ログイン完了"
   end
 
   def session
