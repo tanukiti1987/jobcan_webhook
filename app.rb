@@ -1,6 +1,7 @@
 require 'sinatra/activerecord'
 require 'sinatra/reloader'
 
+require_relative 'lib/init'
 require_relative 'models/init'
 
 class App < Sinatra::Base
@@ -43,9 +44,22 @@ class App < Sinatra::Base
 
   post '/clock_in' do
     set_authentication
+    jobcan = Jobcan.new(@authentication)
+    if jobcan.clock_in
+      puts "出勤できました"
+    else
+      puts "出勤できませんでした"
+    end
   end
 
   post '/clock_out' do
     set_authentication
+    jobcan = Jobcan.new(@authentication)
+
+    if jobcan.clock_out
+      puts "退勤できました"
+    else
+      puts "退勤できませんでした"
+    end
   end
 end

@@ -21,6 +21,10 @@ gem "rack-ssl", "~> 1.4"
 gem "haml"
 gem "sass"
 
+gem "nokogiri"
+gem "poltergeist"
+gem "capybara"
+
 group :development do
   gem "pry"
 end
