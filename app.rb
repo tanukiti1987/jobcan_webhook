@@ -46,9 +46,11 @@ class App < Sinatra::Base
     set_authentication
     jobcan = Jobcan.new(@authentication)
     if jobcan.clock_in
-      puts "出勤できました"
+      slack_notifier = SlackNotifier.new
+      slack_notifier.notify "出勤できました"
     else
-      puts "出勤できませんでした"
+      slack_notifier = SlackNotifier.new
+      slack_notifier.notify "出勤できませんでした"
     end
   end
 

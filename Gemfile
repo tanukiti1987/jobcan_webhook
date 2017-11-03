@@ -25,6 +25,8 @@ gem "nokogiri"
 gem "poltergeist"
 gem "capybara"
 
+gem "slack-incoming-webhooks"
+
 group :development do
   gem "pry"
 end
