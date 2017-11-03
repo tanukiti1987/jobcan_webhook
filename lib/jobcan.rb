@@ -19,7 +19,7 @@ class Jobcan
     return false if working_status != :before_work
 
     puts "出勤処理"
-    # session.find('p#adit-button-push').click
+    session.find('p#adit-button-push').click
 
     while working_status == :before_work && @retry > 0
       sleep 1
@@ -40,7 +40,7 @@ class Jobcan
 
     return false if working_status != :on_duty
 
-    # session.find('p#adit-button-work-end').click
+    session.find('p#adit-button-work-end').click
 
     while working_status == :on_duty && @retry > 0
       sleep 1
