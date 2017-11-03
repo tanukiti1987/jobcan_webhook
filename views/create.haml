@@ -1,0 +1,72 @@
+.hoge
+  %h1 webhook info
+
+  %h2 Your credentials
+
+  %table.table.table-striped
+    %thead
+      %tr
+        %th{ scope: 'col' }
+          Key
+        %th{ scope: 'col' }
+          Value
+    %tbody
+      %tr
+        %th{ scope: 'row' }
+          Access Key
+        %td
+          = @authentication.access_key
+      %tr
+        %th{ scope: 'row' }
+          Secret Key
+        %td
+          = @authentication.secret_key
+
+  %h2 Endpoint
+
+  %table.table.table-striped
+    %thead
+      %tr
+        %th{ scope: 'col' }
+          \#
+        %th{ scope: 'col' }
+          Method
+        %th{ scope: 'col' }
+          Content-Type
+        %th{ scope: 'col' }
+          URL
+    %tbody
+      %tr
+        %th{ scope: 'row' }
+          出勤
+        %td
+          POST
+        %td
+          application/json
+        %td
+          https://jobcan-webhook.herokuapp.com/clock_in
+      %tr
+        %th{ scope: 'row' }
+          退勤
+        %td
+          POST
+        %td
+          application/json
+        %td
+          https://jobcan-webhook.herokuapp.com/clock_out
+
+
+  .bd-callout.bd-callout-warning
+    %b
+      POST の body に
+      %code
+        access_key
+      と
+      %code
+        secret_key
+      を含めてください
+    .example
+      %pre
+        curl -X POST -H 'Content-type: application/json' \
+        \--data '{"access_key":"YOUR_ACCESS_KEY","secret_key":"YOUR_SECRET_KEY"}' \
+        https://jobcan-webhook.herokuapp.com/clock_in

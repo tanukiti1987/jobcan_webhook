@@ -20,14 +20,13 @@ class App < Sinatra::Base
   end
 
   post '/create' do
-    authentication =
+    @authentication =
       Authentication.create(
         client_name: params['client_name'],
         user_name: params['user_name'],
         password: params['password'])
 
-    if authentication
-      # TODO: implement later
+    if @authentication
       haml :create
     else
       # TODO: add flash message
