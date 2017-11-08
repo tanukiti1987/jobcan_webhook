@@ -61,15 +61,17 @@ class App < Sinatra::Base
     set_authentication
     jobcan = Jobcan.new(@authentication)
 
-    EM::defer do
-      message =
-        if jobcan.clock_in
-          "出勤できました"
-        else
-          "出勤できませんでした"
-        end
+    EM.run do
+      EM::defer do
+        message =
+          if jobcan.clock_in
+            "出勤できました"
+          else
+            "出勤できませんでした"
+          end
 
-      @authentication.slack_notification&.notify message
+        @authentication.slack_notification&.notify message
+      end
     end
   end
 
@@ -77,15 +79,17 @@ class App < Sinatra::Base
     set_authentication
     jobcan = Jobcan.new(@authentication)
 
-    EM::defer do
-      message =
-        if jobcan.clock_out
-          "退勤できました"
-        else
-          "退勤できませんでした"
-        end
+    EM.run do
+      EM::defer do
+        message =
+          if jobcan.clock_out
+            "退勤できました"
+          else
+            "退勤できませんでした"
+          end
 
-      @authentication.slack_notification&.notify message
+        @authentication.slack_notification&.notify message
+      end
     end
   end
 end
