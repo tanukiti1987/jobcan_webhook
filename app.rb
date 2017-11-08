@@ -1,5 +1,6 @@
 require 'sinatra/activerecord'
 require 'sinatra/reloader'
+require 'eventmachine'
 
 require_relative 'lib/init'
 require_relative 'models/init'
@@ -59,26 +60,32 @@ class App < Sinatra::Base
   post '/clock_in' do
     set_authentication
     jobcan = Jobcan.new(@authentication)
-    message =
-      if jobcan.clock_in
-        "出勤できました"
-      else
-        "出勤できませんでした"
-      end
 
-    @authentication.slack_notification&.notify message
+    EM::defer do
+      message =
+        if jobcan.clock_in
+          "出勤できました"
+        else
+          "出勤できませんでした"
+        end
+
+      @authentication.slack_notification&.notify message
+    end
   end
 
   post '/clock_out' do
     set_authentication
     jobcan = Jobcan.new(@authentication)
-    message =
-      if jobcan.clock_out
-        "退勤できました"
-      else
-        "退勤できませんでした"
-      end
 
-    @authentication.slack_notification&.notify message
+    EM::defer do
+      message =
+        if jobcan.clock_out
+          "退勤できました"
+        else
+          "退勤できませんでした"
+        end
+
+      @authentication.slack_notification&.notify message
+    end
   end
 end
