@@ -1,3 +1,5 @@
+require 'slack/incoming/webhooks'
+
 class SlackNotification < ActiveRecord::Base
   belongs_to :authentication
 
@@ -8,7 +10,7 @@ class SlackNotification < ActiveRecord::Base
   private
 
   def slack
-    @slack ||= Slack::Incoming::Webhooks.new(
+    @slack ||= ::Slack::Incoming::Webhooks.new(
       webhook_url,
       channel: channel,
       username: 'Jobcan'
