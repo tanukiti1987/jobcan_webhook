@@ -1,9 +1,15 @@
-require 'sinatra/activerecord'
 require 'sinatra/reloader'
-require 'eventmachine'
+require 'redis'
+require 'redis-namespace'
+require 'sidekiq'
 
 require_relative 'lib/init'
 require_relative 'models/init'
+require_relative 'workers/init'
+
+Sidekiq.configure_server do |config|
+    config.redis = { url:  ENV["REDIS_URL"] || 'redis://localhost:6379', namespace: 'sidekiq' }
+end
 
 class App < Sinatra::Base
   configure :development do
@@ -59,37 +65,11 @@ class App < Sinatra::Base
 
   post '/clock_in' do
     set_authentication
-    jobcan = Jobcan.new(@authentication)
-
-    EM.run do
-      EM::defer do
-        message =
-          if jobcan.clock_in
-            "出勤できました"
-          else
-            "出勤できませんでした"
-          end
-
-        @authentication.slack_notification&.notify message
-      end
-    end
+    ClockInWorker.perform_async @authentication.id
   end
 
   post '/clock_out' do
     set_authentication
-    jobcan = Jobcan.new(@authentication)
-
-    EM.run do
-      EM::defer do
-        message =
-          if jobcan.clock_out
-            "退勤できました"
-          else
-            "退勤できませんでした"
-          end
-
-        @authentication.slack_notification&.notify message
-      end
-    end
+    ClockOutWorker.perform_async @authentication.id
   end
 end
