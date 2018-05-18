@@ -6,7 +6,8 @@ end
 
 class Jobcan
   WORKING_STATUS = { "未出勤": :before_work, "勤務中": :on_duty, "退室中": :clock_out }
-  RETRY_COUNT = 3
+  RETRY_COUNT = 5
+  DEFAULT_SLEEP_SEC = 3
 
   def initialize(authentication)
     @authentication = authentication
@@ -18,11 +19,13 @@ class Jobcan
 
     return false if working_status != :before_work
 
-    puts "出勤処理"
+    puts "出勤処理開始"
     session.find('p#adit-button-push').click
+    puts "出勤処理中..."
 
     while working_status == :before_work && @retry > 0
-      sleep 1
+      puts "状態変更待ち..."
+      sleep DEFAULT_SLEEP_SEC
       @retry -= 1
     end
 
@@ -40,10 +43,13 @@ class Jobcan
 
     return false if working_status != :on_duty
 
+    puts "退勤処理開始"
     session.find('p#adit-button-work-end').click
+    puts "退勤処理中..."
 
     while working_status == :on_duty && @retry > 0
-      sleep 1
+      puts "状態変更待ち..."
+      sleep DEFAULT_SLEEP_SEC
       @retry -= 1
     end
 
