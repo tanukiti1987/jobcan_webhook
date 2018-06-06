@@ -3,8 +3,8 @@ source "https://rubygems.org"
 
 ruby "2.5.1"
 
-gem "sinatra", require: "sinatra/base"
-gem "sinatra-contrib", require: "sinatra/contrib/all"
+gem "sinatra", "~> 2.0.2", require: "sinatra/base"
+gem "sinatra-contrib", "~> 2.0.2", require: "sinatra/contrib/all"
 
 gem "pg"
 
