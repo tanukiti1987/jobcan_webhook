@@ -66,7 +66,7 @@ class Jobcan
 
   def visit_and_login
     puts "サイトに行く"
-    session.visit "https://ssl.jobcan.jp/login/pc-employee/?client_id=#{@authentication.client_name}"
+    session.visit "https://ssl.jobcan.jp/login/pc-employee/old?client_id=#{@authentication.client_name}"
 
     session.fill_in("email", with: @authentication.user_name)
     session.fill_in("password", with: @authentication.decrypted_password)
